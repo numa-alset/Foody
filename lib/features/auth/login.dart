@@ -161,11 +161,6 @@ class _LoginPageState extends State<LoginPage> {
                         duration: const Duration(milliseconds: 1900),
                         child: ElevatedButton(
                           onPressed: () => _submit(auth),
-                          style: ButtonStyle(
-                            backgroundColor: WidgetStatePropertyAll(
-                              Colors.orange,
-                            ),
-                          ),
                           child: const Text("Login"),
                         ),
                       ),
