@@ -47,6 +47,7 @@ dependencies:
   fluttertoast: ^9.0.0
   animate_do: ^4.2.0
   lottie: ^3.3.1
+  modal_progress_hud_nsn: ^0.5.1
 
 
 dev_dependencies:
@@ -77,6 +78,7 @@ flutter:
   #   - images/a_dot_ham.jpeg
   assets:
     - .env
+    - assets/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images
