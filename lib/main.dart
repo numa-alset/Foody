@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:foody/constatnt/app_theme.dart';
 import 'package:foody/core/observers/auth_provider.dart';
 import 'package:foody/core/routing/go_router.dart';
+import 'package:foody/features/home/bloc/restaurant_cubit.dart';
+import 'package:foody/features/menus/bloc/menu_cubit.dart';
 import 'package:provider/provider.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -33,7 +36,11 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
-      providers: [ChangeNotifierProvider(create: (_) => AuthProvider())],
+      providers: [
+        ChangeNotifierProvider(create: (_) => AuthProvider()),
+        BlocProvider(create: (_) => RestaurantCubit()..fetchRestaurants()),
+        BlocProvider(create: (_) => MenuCubit()),
+      ],
       builder: (context, child) {
         final auth = context.watch<AuthProvider>();
         return MaterialApp.router(
