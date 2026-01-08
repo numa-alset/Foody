@@ -5,8 +5,11 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:foody/constatnt/app_theme.dart';
 import 'package:foody/core/observers/auth_provider.dart';
 import 'package:foody/core/routing/go_router.dart';
+import 'package:foody/features/cart/bloc/cart_cubit.dart';
 import 'package:foody/features/home/bloc/restaurant_cubit.dart';
 import 'package:foody/features/menus/bloc/menu_cubit.dart';
+import 'package:hydrated_bloc/hydrated_bloc.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -26,7 +29,11 @@ Future<void> main() async {
     SystemUiMode.manual,
     overlays: [SystemUiOverlay.bottom, SystemUiOverlay.top],
   );
-
+  HydratedBloc.storage = await HydratedStorage.build(
+    storageDirectory: HydratedStorageDirectory(
+      (await getTemporaryDirectory()).path,
+    ),
+  );
   runApp(const MyApp());
 }
 
@@ -40,6 +47,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => AuthProvider()),
         BlocProvider(create: (_) => RestaurantCubit()..fetchRestaurants()),
         BlocProvider(create: (_) => MenuCubit()),
+        BlocProvider(create: (_) => CartCubit()),
       ],
       builder: (context, child) {
         final auth = context.watch<AuthProvider>();

@@ -2,7 +2,7 @@ import 'package:foody/core/observers/auth_provider.dart';
 import 'package:foody/core/routing/routes_url.dart';
 import 'package:foody/features/auth/login.dart';
 import 'package:foody/features/auth/register.dart';
-import 'package:foody/features/cart/cart.dart';
+import 'package:foody/features/cart/screen/cart_screen.dart';
 import 'package:foody/features/deliveries/deliveries.dart';
 import 'package:foody/features/home/screen/shell_navigation.dart';
 import 'package:foody/features/menus/screen/menu_screen.dart';
@@ -46,7 +46,10 @@ class AppRouter {
           path: RoutesUrl.register,
           builder: (context, _) => const RegisterPage(),
         ),
-        GoRoute(path: RoutesUrl.cart, builder: (context, _) => const Cart()),
+        GoRoute(
+          path: RoutesUrl.cart,
+          builder: (context, _) => const CartScreen(),
+        ),
         GoRoute(
           path: RoutesUrl.menus,
           builder: (context, state) {

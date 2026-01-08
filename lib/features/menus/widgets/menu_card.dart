@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:foody/core/models/cart_item.dart';
 import 'package:foody/core/models/menu.dart';
+import 'package:foody/features/cart/bloc/cart_cubit.dart';
 
 class MenuCard extends StatelessWidget {
   final Menu menu;
@@ -76,7 +80,27 @@ class MenuCard extends StatelessWidget {
                 ),
               ),
             ),
-            IconButton(onPressed: () {}, icon: Icon(Icons.add)),
+            IconButton(
+              onPressed: () {
+                context.read<CartCubit>().addToCart(
+                  CartItem(
+                    menuId: menu.id,
+                    restaurantId: menu.restaurantId,
+                    name: menu.name,
+                    price: menu.price,
+                  ),
+                );
+                Fluttertoast.showToast(
+                  msg: "menu added to cart",
+                  toastLength: Toast.LENGTH_SHORT,
+                  gravity: ToastGravity.BOTTOM,
+                  backgroundColor: Colors.orange,
+                  textColor: Colors.white,
+                  fontSize: 16.0,
+                );
+              },
+              icon: Icon(Icons.add),
+            ),
           ],
         ),
       ),

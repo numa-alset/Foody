@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:foody/core/routing/routes_url.dart';
+import 'package:foody/features/cart/bloc/cart_cubit.dart';
 import 'package:foody/features/home/widgets/bottom_navigation_widget.dart';
 import 'package:go_router/go_router.dart';
 
@@ -22,11 +24,22 @@ class _ShellNavigationState extends State<ShellNavigation> {
         title: Text(title),
         centerTitle: true,
         actions: [
-          IconButton(
-            onPressed: () {
-              context.push(RoutesUrl.cart);
-            },
-            icon: const Icon(Icons.shopping_bag_outlined),
+          Badge(
+            alignment: Alignment.topLeft,
+            isLabelVisible: context.read<CartCubit>().totalItems() != 0,
+            label: Text(
+              context.read<CartCubit>().totalItems().toString(),
+              style: TextStyle(
+                color: Theme.of(context).colorScheme.onPrimary,
+                // fontSize: 12,
+              ),
+            ),
+            child: IconButton(
+              onPressed: () {
+                context.push(RoutesUrl.cart);
+              },
+              icon: const Icon(Icons.shopping_cart),
+            ),
           ),
           // ThemeToggleButton(),
           // LanguageSwitcher(),
