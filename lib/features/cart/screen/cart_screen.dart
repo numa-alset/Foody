@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:foody/core/models/cart_item.dart';
+import 'package:foody/core/ui/app_empty_view.dart';
 import 'package:foody/features/cart/bloc/cart_cubit.dart';
 import 'package:foody/features/cart/bloc/cart_state.dart';
 import 'package:foody/features/cart/widgets/cart_image.dart';
 import 'package:foody/features/cart/widgets/cart_info.dart';
 import 'package:foody/features/cart/widgets/checkout_bar.dart';
 import 'package:foody/features/cart/widgets/quantity_control.dart';
-import 'package:lottie/lottie.dart';
+import 'package:go_router/go_router.dart';
 
 class CartScreen extends StatelessWidget {
   const CartScreen({super.key});
@@ -19,7 +20,12 @@ class CartScreen extends StatelessWidget {
       body: BlocBuilder<CartCubit, CartState>(
         builder: (context, state) {
           if (state.isEmpty) {
-            return _EmptyCart();
+            return AppEmptyView(
+              title: "Your cart is empty",
+              subtitle: "Add some delicious food 🍔",
+              actionText: "Add some delicious food 🍔",
+              onAction: () => context.pop(),
+            );
           }
 
           return ListView.separated(
@@ -36,30 +42,6 @@ class CartScreen extends StatelessWidget {
         padding: EdgeInsets.symmetric(vertical: 5),
         margin: EdgeInsets.symmetric(vertical: 5),
         child: CheckoutBar(),
-      ),
-    );
-  }
-}
-
-class _EmptyCart extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Lottie.asset('assets/cart_full.json'),
-          const SizedBox(height: 16),
-          const Text(
-            "Your cart is empty",
-            style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
-          ),
-          const SizedBox(height: 8),
-          Text(
-            "Add some delicious food 🍔",
-            style: TextStyle(color: Colors.grey.shade600),
-          ),
-        ],
       ),
     );
   }
