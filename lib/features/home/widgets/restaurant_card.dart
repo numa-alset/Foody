@@ -12,7 +12,7 @@ class RestaurantCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        context.push(RoutesUrl.menus, extra: [restaurant.id, restaurant.name]);
+        context.push(RoutesUrl.menus, extra: restaurant);
       },
       child: Container(
         decoration: BoxDecoration(
