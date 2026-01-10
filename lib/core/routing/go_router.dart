@@ -1,3 +1,4 @@
+import 'package:foody/core/models/restaurant.dart';
 import 'package:foody/core/observers/auth_provider.dart';
 import 'package:foody/core/routing/routes_url.dart';
 import 'package:foody/features/auth/login.dart';
@@ -54,7 +55,7 @@ class AppRouter {
           path: RoutesUrl.menus,
           builder: (context, state) {
             {
-              return MenuScreen(menuScreenParam: state.extra as List<String>);
+              return MenuScreen(restaurant: state.extra as Restaurant);
             }
           },
         ),

@@ -20,11 +20,20 @@ class Menu {
     return Menu(
       id: json['menu_id'] as String,
       name: json['item_name'] as String,
-      price: json['price'] as double,
+      price: (json['price'] as num).toDouble(),
       description: json['description'] as String,
       availabilityStatus: json['availability_status'] as bool,
       imageUrl: json['image_url'] as String?,
       restaurantId: json['restaurant_id'] as String,
     );
   }
+  Map<String, dynamic> toJson() => {
+    'menu_Id': id,
+    'item_name': name,
+    'description': description,
+    'price': price,
+    'availability_status': availabilityStatus,
+    'imageUrl': imageUrl,
+    'restaurant_id': restaurantId,
+  };
 }
