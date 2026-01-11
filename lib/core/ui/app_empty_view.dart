@@ -41,6 +41,9 @@ class AppEmptyView extends StatelessWidget {
             if (onAction != null) ...[
               const SizedBox(height: 20),
               ElevatedButton(
+                // style: ButtonStyle(
+                //   padding: WidgetStatePropertyAll(EdgeInsets.all(10)),
+                // ),
                 onPressed: onAction,
                 child: Text(actionText ?? 'Refresh'),
               ),

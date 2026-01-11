@@ -7,6 +7,8 @@ import 'package:foody/core/models/menu.dart';
 import 'package:foody/features/cart/bloc/cart_cubit.dart';
 
 // --------------------------- MenuCard ---------------------------
+///TODO
+///user click on item to see items to see more details
 class MenuCard extends StatelessWidget {
   final Menu menu;
 

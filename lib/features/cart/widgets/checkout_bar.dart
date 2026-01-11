@@ -30,7 +30,7 @@ class CheckoutBar extends StatelessWidget {
                 ),
               ),
               onPressed: () => _openCheckoutSheet(context),
-              child: const Text("Checkout"),
+              child: const Text("Add to Orders"),
             ),
           ],
         );
@@ -44,17 +44,12 @@ class CheckoutBar extends StatelessWidget {
       isScrollControlled: true,
       backgroundColor: Colors.transparent,
       builder: (_) {
-        return const _CheckoutBottomSheet();
+        return _checkoutBottomSheet(context);
       },
     );
   }
-}
 
-class _CheckoutBottomSheet extends StatelessWidget {
-  const _CheckoutBottomSheet();
-
-  @override
-  Widget build(BuildContext context) {
+  _checkoutBottomSheet(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(20),
       margin: const EdgeInsets.only(top: 60),
@@ -68,26 +63,22 @@ class _CheckoutBottomSheet extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            _Handle(),
+            _handle(),
             const SizedBox(height: 16),
             const Text(
               "Order Summary",
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 12),
-            _OrderItems(),
+            _orderItems(context),
             const SizedBox(height: 16),
-            _TotalRow(),
+            _totalRow(context),
             const SizedBox(height: 20),
             SizedBox(
               width: double.infinity,
               child: ElevatedButton(
-                onPressed: () {
-                  Navigator.pop(context);
-                  context.read<CartCubit>().clearCart();
-                  // Navigate to payment
-                },
-                child: const Text("Proceed to Payment"),
+                onPressed: () => context.read<CartCubit>().addNewOrder(context),
+                child: const Text("Add to Orders"),
               ),
             ),
           ],
@@ -95,11 +86,8 @@ class _CheckoutBottomSheet extends StatelessWidget {
       ),
     );
   }
-}
 
-class _Handle extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
+  _handle() {
     return Center(
       child: Container(
         width: 40,
@@ -111,13 +99,9 @@ class _Handle extends StatelessWidget {
       ),
     );
   }
-}
 
-class _OrderItems extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
+  _orderItems(BuildContext context) {
     final items = context.watch<CartCubit>().state.items;
-
     return Column(
       children: items
           .map(
@@ -136,13 +120,9 @@ class _OrderItems extends StatelessWidget {
           .toList(),
     );
   }
-}
 
-class _TotalRow extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
+  _totalRow(BuildContext context) {
     final total = context.watch<CartCubit>().state.subtotal;
-
     return Row(
       children: [
         const Text("Total", style: TextStyle(fontSize: 16)),
