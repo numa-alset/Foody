@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:foody/constatnt/app_colors.dart';
 import 'package:foody/core/models/cart_item.dart';
 import 'package:foody/core/models/menu.dart';
+import 'package:foody/core/ui/global_toast.dart';
 import 'package:foody/features/cart/bloc/cart_cubit.dart';
 
 // --------------------------- MenuCard ---------------------------
@@ -114,14 +114,7 @@ class MenuCard extends StatelessWidget {
                     price: menu.price,
                   ),
                 );
-                Fluttertoast.showToast(
-                  msg: "menu added to cart",
-                  toastLength: Toast.LENGTH_SHORT,
-                  gravity: ToastGravity.BOTTOM,
-                  backgroundColor: Colors.orange,
-                  textColor: Colors.white,
-                  fontSize: 16.0,
-                );
+                GlobalToast.show("menu added to cart");
               }
             : null,
         child: const Padding(

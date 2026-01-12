@@ -7,7 +7,7 @@ import 'package:foody/features/cart/screen/cart_screen.dart';
 import 'package:foody/features/deliveries/deliveries.dart';
 import 'package:foody/features/home/screen/shell_navigation.dart';
 import 'package:foody/features/menus/screen/menu_screen.dart';
-import 'package:foody/features/orders/orders.dart';
+import 'package:foody/features/orders/screen/orders.dart';
 import 'package:foody/features/profile/profile.dart';
 import 'package:go_router/go_router.dart';
 
@@ -81,7 +81,7 @@ class AppRouter {
                 GoRoute(
                   path: RoutesUrl.orders,
                   builder: (context, state) {
-                    return Orders();
+                    return OrdersScreen();
                   },
                 ),
               ],

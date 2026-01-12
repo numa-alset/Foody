@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:foody/core/models/cart_item.dart';
 import 'package:foody/core/routing/routes_url.dart';
 import 'package:foody/core/ui/app_empty_view.dart';
 import 'package:foody/core/ui/app_error_view.dart';
 import 'package:foody/core/ui/app_loading_view.dart';
+import 'package:foody/core/ui/global_toast.dart';
 import 'package:foody/features/cart/bloc/cart_cubit.dart';
 import 'package:foody/features/cart/bloc/cart_state.dart';
 import 'package:foody/features/cart/widgets/cart_image.dart';
@@ -25,13 +25,8 @@ class CartScreen extends StatelessWidget {
         listenWhen: (previous, current) => previous.status != current.status,
         listener: (context, state) {
           if (state.status == CartStatus.success) {
-            Fluttertoast.showToast(
-              msg: "Order placed successfully!\nyou will be redirect to orders",
-              toastLength: Toast.LENGTH_SHORT,
-              gravity: ToastGravity.BOTTOM,
-              backgroundColor: Colors.orange,
-              textColor: Colors.white,
-              fontSize: 16.0,
+            GlobalToast.show(
+              "Order placed successfully!\nyou will be redirect to orders",
             );
             Future.delayed(
               Duration(seconds: 2),

@@ -32,4 +32,17 @@ class Order {
     'created_at': createdAt,
     'restaurant_id': restaurantId,
   };
+  Order copyWith({
+    String? orderStatus,
+    // add other fields you want to support
+  }) {
+    return Order(
+      id: id,
+      userId: userId,
+      totalAmount: totalAmount,
+      createdAt: createdAt,
+      orderStatus: orderStatus ?? this.orderStatus,
+      restaurantId: restaurantId,
+    );
+  }
 }
