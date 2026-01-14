@@ -4,11 +4,11 @@ import 'package:foody/core/routing/routes_url.dart';
 import 'package:foody/features/auth/login.dart';
 import 'package:foody/features/auth/register.dart';
 import 'package:foody/features/cart/screen/cart_screen.dart';
-import 'package:foody/features/deliveries/deliveries.dart';
+import 'package:foody/features/deliveries/screen/deliveries_screen.dart';
 import 'package:foody/features/home/screen/shell_navigation.dart';
 import 'package:foody/features/menus/screen/menu_screen.dart';
 import 'package:foody/features/orders/screen/orders.dart';
-import 'package:foody/features/profile/profile.dart';
+import 'package:foody/features/profile/screen/profile_screen.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../features/home/screen/home_page.dart';
@@ -93,7 +93,7 @@ class AppRouter {
                 GoRoute(
                   path: RoutesUrl.deliveries,
                   builder: (context, state) {
-                    return Deliveries();
+                    return DeliveriesScreen();
                   },
                 ),
               ],
@@ -104,7 +104,7 @@ class AppRouter {
                 GoRoute(
                   path: RoutesUrl.profile,
                   builder: (context, state) {
-                    return Profile();
+                    return ProfileScreen();
                   },
                 ),
               ],

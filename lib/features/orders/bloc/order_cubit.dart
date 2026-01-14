@@ -12,7 +12,6 @@ class OrderCubit extends Cubit<OrderState> {
   List<OrderWithItems> _allOrdersCache = [];
 
   Future<void> fetchOrdersWithItems({bool showLoading = true}) async {
-    print("in fetch");
     if (showLoading) {
       emit(OrderLoading());
     }
@@ -102,7 +101,7 @@ class OrderCubit extends Cubit<OrderState> {
       await supabase.from('delivery').insert({
         'order_id': orderId,
         'driver_id': driverResponse["driver_id"],
-        'delivery_status': "pending",
+        'delivery_status': "on_the_way",
         'estimated_time': DateTime.now()
             .add(Duration(minutes: 30))
             .toIso8601String(),

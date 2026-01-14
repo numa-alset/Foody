@@ -6,9 +6,11 @@ import 'package:foody/constatnt/app_theme.dart';
 import 'package:foody/core/observers/auth_provider.dart';
 import 'package:foody/core/routing/go_router.dart';
 import 'package:foody/features/cart/bloc/cart_cubit.dart';
+import 'package:foody/features/deliveries/bloc/delivery_cubit.dart';
 import 'package:foody/features/home/bloc/restaurant_cubit.dart';
 import 'package:foody/features/menus/bloc/menu_cubit.dart';
 import 'package:foody/features/orders/bloc/order_cubit.dart';
+import 'package:foody/features/profile/bloc/profile_cubit.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
@@ -50,6 +52,10 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (_) => MenuCubit()),
         BlocProvider(create: (_) => CartCubit()),
         BlocProvider(create: (_) => OrderCubit()..fetchOrdersWithItems()),
+        BlocProvider(create: (_) => ProfileCubit()..fetchProfile()),
+        BlocProvider(
+          create: (_) => DeliveryCubit()..fetchDeliveriesWithDrivers(),
+        ),
       ],
       builder: (context, child) {
         final auth = context.watch<AuthProvider>();
