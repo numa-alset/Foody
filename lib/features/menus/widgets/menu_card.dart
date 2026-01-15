@@ -9,10 +9,23 @@ import 'package:foody/features/cart/bloc/cart_cubit.dart';
 // --------------------------- MenuCard ---------------------------
 ///TODO
 ///user click on item to see items to see more details
-class MenuCard extends StatelessWidget {
+class MenuCard extends StatefulWidget {
   final Menu menu;
 
   const MenuCard({super.key, required this.menu});
+
+  @override
+  State<MenuCard> createState() => _MenuCardState();
+}
+
+class _MenuCardState extends State<MenuCard> {
+  bool _expanded = false;
+
+  void _toggleExpand() {
+    setState(() {
+      _expanded = !_expanded;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -23,18 +36,16 @@ class MenuCard extends StatelessWidget {
       shadowColor: Colors.black.withValues(alpha: 0.08),
       clipBehavior: Clip.antiAlias,
       child: InkWell(
-        onTap: () {
-          // Optional: open detailed menu screen
-        },
+        onTap: _toggleExpand,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             // Image takes more space
             AspectRatio(
               aspectRatio: 16 / 10,
-              child: menu.imageUrl != null
+              child: widget.menu.imageUrl != null
                   ? Image.network(
-                      menu.imageUrl!,
+                      widget.menu.imageUrl!,
                       fit: BoxFit.cover,
                       errorBuilder: (_, __, ___) => _placeholderImage(),
                     )
@@ -47,7 +58,7 @@ class MenuCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    menu.name,
+                    widget.menu.name,
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
                     style: const TextStyle(
@@ -57,22 +68,35 @@ class MenuCard extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(height: 6),
-                  Text(
-                    menu.description,
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                    style: TextStyle(
-                      fontSize: 13.5,
-                      color: Colors.grey.shade700,
-                      height: 1.3,
-                    ),
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Expanded(
+                        child: AnimatedSize(
+                          duration: const Duration(milliseconds: 250),
+                          child: Text(
+                            widget.menu.description,
+                            maxLines: _expanded ? 3 : 1,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ),
+                      ),
+                      Icon(
+                        _expanded
+                            ? Icons.keyboard_arrow_up
+                            : Icons.keyboard_arrow_down,
+                        size: 18,
+                        color: Colors.grey,
+                      ),
+                    ],
                   ),
+
                   const SizedBox(height: 12),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        "\$${menu.price.toStringAsFixed(2)}",
+                        "\$${widget.menu.price.toStringAsFixed(2)}",
                         style: TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.w700,
@@ -99,27 +123,30 @@ class MenuCard extends StatelessWidget {
   }
 
   Widget _buildAddButton(BuildContext context) {
-    return Material(
-      color: menu.availabilityStatus ? AppColors.primary : Colors.grey,
-      borderRadius: BorderRadius.circular(50),
-      child: InkWell(
+    return GestureDetector(
+      onTap: () {},
+      child: Material(
+        color: widget.menu.availabilityStatus ? AppColors.primary : Colors.grey,
         borderRadius: BorderRadius.circular(50),
-        onTap: menu.availabilityStatus
-            ? () {
-                context.read<CartCubit>().addToCart(
-                  CartItem(
-                    menuId: menu.id,
-                    restaurantId: menu.restaurantId,
-                    name: menu.name,
-                    price: menu.price,
-                  ),
-                );
-                GlobalToast.show("menu added to cart");
-              }
-            : null,
-        child: const Padding(
-          padding: EdgeInsets.all(10),
-          child: Icon(Icons.add_rounded, color: Colors.white, size: 26),
+        child: InkWell(
+          borderRadius: BorderRadius.circular(50),
+          onTap: widget.menu.availabilityStatus
+              ? () {
+                  context.read<CartCubit>().addToCart(
+                    CartItem(
+                      menuId: widget.menu.id,
+                      restaurantId: widget.menu.restaurantId,
+                      name: widget.menu.name,
+                      price: widget.menu.price,
+                    ),
+                  );
+                  GlobalToast.show("menu added to cart");
+                }
+              : null,
+          child: const Padding(
+            padding: EdgeInsets.all(10),
+            child: Icon(Icons.add_rounded, color: Colors.white, size: 26),
+          ),
         ),
       ),
     );

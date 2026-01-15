@@ -240,7 +240,7 @@ class MenuScreen extends StatelessWidget {
             ),
             const SizedBox(height: 16),
             SizedBox(
-              height: 310,
+              height: 330,
               child: ListView.separated(
                 padding: const EdgeInsets.symmetric(horizontal: 16),
                 scrollDirection: Axis.horizontal,
