@@ -49,12 +49,16 @@ class AuthProvider extends ChangeNotifier {
     if (user == null) {
       throw Exception('User creation failed');
     }
-
-    await supabase.from('users').insert({
-      'name': name,
-      'phone': phone,
-      'address': address,
-    });
+    try {
+      await supabase
+          .from('users')
+          .update({'name': name, 'phone': phone, 'address': address})
+          .eq("user_id", user.id);
+    } catch (e) {
+      print("e");
+      print(e);
+      print("e");
+    }
   }
 
   Future<void> logout() async {
