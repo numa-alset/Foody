@@ -71,6 +71,13 @@ class OrdersScreen extends StatelessWidget {
                                   style: Theme.of(context).textTheme.titleMedium
                                       ?.copyWith(color: Colors.grey.shade700),
                                 ),
+                                SizedBox(height: 4),
+                                ElevatedButton(
+                                  onPressed: () => context
+                                      .read<OrderCubit>()
+                                      .fetchOrdersWithItems(),
+                                  child: Text("refresh"),
+                                ),
                               ],
                             ),
                           )
